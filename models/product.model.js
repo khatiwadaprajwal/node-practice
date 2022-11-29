@@ -6,6 +6,9 @@ const product = mongoose.Schema({
     price:{
         type:String
     },
+    image:{
+        type:String
+    },
     in_stock:{
         type:Boolean,
         default:true
