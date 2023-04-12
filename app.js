@@ -3,24 +3,26 @@ const express = require("express")
 const app = express()
 const multer=require("multer")
 require("./config/mongoconfig")
+var path=require("path")
 
 const routes = require("./routes/index")
 app.use("/v1",routes)
 
-/*app.use('public', express.static('public/'));
-app.post("/upload", mystorage.single('public'), (req, res) => {
 
-    res.json({
-        success: 1,
-        profile_url: `http://localhost:3001/profile/${req.file.filename}`
-    })
-})*/
+app.use(express.static('public/'));
 
+app.use((err, req, res, next) => {
+  // Extract status code and error message from err object or default to 500 status and "Error" message
+  let status_code = err?.status || 500;
+  let msg = err?.msg || "Error";
 
-/*app.use("/hello",(req,res)=>{
-  res.json({msg:"hello world"})
-})*/
-
+  // Send JSON response with error details
+  res.status(status_code).json({
+    result: null,
+    status: false,
+    msg: msg
+  });
+});
 app.listen(3001,"localhost",(err)=>{
     if(err){
         console.log("Server err")

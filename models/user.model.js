@@ -9,11 +9,10 @@ const User = mongoose.Schema({
     },
     password: {
         type:String
-        
-    
-        
-
     },
+    is_admin:{
+        type:Boolean
+    }
 },{
   
     timestamps:true,

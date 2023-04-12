@@ -1,15 +1,20 @@
-const Product = require("../models/product.model")
-//add product admin la matra acess garna pauna middleware banaunu xa
+const Product = require("../models/product.model");
+const local_host='http://localhost:3001/'
+
 const addProduct = (req,res,next)=>{
     let data = req.body;
     if(req.file){
-        data.image = req.file.filename
+        data.image = req.file.filename;
     }
     try{
         let product = new Product(data);
         product.save()
         res.json({
-            msg:"Product added successfully"
+            msg:"Image uploaded successfully",
+            url:local_host+data.image
+         
+            
+            
         })
 
     } catch(error){
@@ -17,6 +22,9 @@ const addProduct = (req,res,next)=>{
     }
 
 }
+
+
+
 
 const listAllProduct = async (req,res,next) => {
     let data = req.body;
